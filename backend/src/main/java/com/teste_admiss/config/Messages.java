@@ -17,5 +17,5 @@ public class Messages {
     public static final String ENTITY_EXCEPTION = "Error Gateway";
     public static final String ERROR_INSERTING_RECORD = "Error Inserting Record: ";
     public static final String ERROR_DELETION_RECORD = "Error Inserting Record: ";
-
+    public static final String YEAR_MIN = "The year must be greater than 1900.";
 }
