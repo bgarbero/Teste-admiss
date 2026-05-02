@@ -31,7 +31,9 @@ public class Aeronave {
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
-    private boolean vendido;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean vendido = false;
 
     @Column
     @CreationTimestamp

@@ -1,12 +1,4 @@
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Cessna 172 Skyhawk', 'Cessna', 2018, 'Aeronave monomotor de asa alta, ideal para treinamento.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Embraer Phenom 300', 'Embraer', 2022, 'Jato executivo leve com performance lider na categoria.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Boeing 737 MAX 8', 'Boeing', 2023, 'Aeronave comercial de medio porte e curto alcance.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Airbus A320neo', 'Airbus', 2021, 'Aeronave de corredor unico com alta eficiencia de combustivel.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Cirrus SR22', 'Cirrus', 2020, 'Monomotor de pistao com sistema de paraquedas de emergencia.', true, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Piper Seneca V', 'Piper', 2015, 'Bimotor leve versatil para transporte executivo.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Gulfstream G650ER', 'Gulfstream', 2024, 'Jato executivo de ultra longo alcance e alto luxo.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Beechcraft King Air 350', 'Beechcraft', 2012, 'Turboprop robusto e confiavel para operacoes regionais.', true, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Pilatus PC-12 NGX', 'Pilatus', 2023, 'Monomotor turboprop suico de alta performance.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Bombardier Global 7500', 'Bombardier', 2022, 'Jato executivo com a maior cabine do mercado.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Robinson R44 Raven II', 'Robinson', 2019, 'Helicoptero leve de quatro lugares muito popular.', false, NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, vendido, created, updated) VALUES ('Diamond DA42-VI', 'Diamond', 2021, 'Bimotor moderno com fuselagem em composite.', false, NOW(), NOW());
+INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('E2-190', 'Embraer', 2014, 'Aeronave comercial de medio porte.', NOW(), NOW());
+INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('737-100', 'Boeing', 1998, 'Aeronave comercial de curto alcance.', NOW(), NOW());
+INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('KC-390', 'Embraer', 2015, 'Aviao de transporte militar.', NOW(), NOW());
+INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('A320', 'Airbus', 1995, 'Aeronave comercial de corredor unico.', NOW(), NOW());

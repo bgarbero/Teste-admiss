@@ -39,9 +39,9 @@ public class AeronaveServiceImpl implements AeronaveService {
 
     @Override
     public Aeronave update(Aeronave entity){
-        if(!repository.existsById(entity.getId())){
-            throw new ResourceNotFoundException(Messages.RESOURCE_NOT_FOUND);
-        }
+        Aeronave existing = repository.findById(entity.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(Messages.RESOURCE_NOT_FOUND));
+        entity.setCreated(existing.getCreated());
         return repository.save(entity);
     }
 
