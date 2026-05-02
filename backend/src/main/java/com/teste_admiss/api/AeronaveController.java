@@ -5,6 +5,7 @@ import com.teste_admiss.api.dto.AeronaveResponseDTO;
 import com.teste_admiss.api.dto.AeronaveResponseFullDTO;
 import com.teste_admiss.api.mapper.AeronaveMapper;
 import com.teste_admiss.business.AeronaveService;
+import com.teste_admiss.config.Messages;
 import com.teste_admiss.infraestruture.domain.Aeronave;
 import com.teste_admiss.infraestruture.exceptions.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,17 +59,21 @@ public class AeronaveController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("/find")
-    public ResponseEntity<Page<AeronaveResponseDTO>> findByFiltros(
-            @RequestParam(required = false) String marca,
-            @RequestParam(required = false) String nome,
-            @RequestParam(required = false) Integer ano,
-            @RequestParam(required = false) Boolean vendido,
-            Pageable pageable) {
-        return ResponseEntity.ok(
-                service.findByFiltros(marca, nome, ano, vendido, pageable)
-                        .map(mapper::toDTO)
-        );
+    @GetMapping("/nome")
+    @Operation(summary = "Recuperar uma aeronave pelo nome", description = "Recuperar uma aeronave pelo nome",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Aeronave recuperada com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AeronaveResponseDTO.class))),
+                    @ApiResponse(responseCode = "404", description = "Aeronave não encontrada",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceNotFoundException.class)))
+            })
+    public ResponseEntity<AeronaveResponseFullDTO> findByName(@RequestParam(name = "nome", required = true) String nome){
+        AeronaveResponseFullDTO dto = mapper.toFullDTO(service.findByName(nome));
+        if (dto == null) {
+            throw new ResourceNotFoundException(Messages.RESOURCE_NOT_FOUND);
+        } else {
+            return ResponseEntity.ok().body(dto);
+        }
     }
 
     @PostMapping
@@ -77,11 +82,11 @@ public class AeronaveController {
                     @ApiResponse(responseCode = "201", description = "Aeronave cadastrada com sucesso",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = AeronaveResponseDTO.class)))
             })
-    public ResponseEntity<AeronaveResponseDTO> insert ( @Valid @RequestBody AeronaveRequestDTO dto){
+    public ResponseEntity<AeronaveResponseFullDTO> insert ( @Valid @RequestBody AeronaveRequestDTO dto){
         Aeronave result = service.insert(mapper.toEntity(dto));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(result.getId()).toUri();
-        return ResponseEntity.created(uri).body(mapper.toDTO(result));
+        return ResponseEntity.created(uri).body(mapper.toFullDTO(result));
     }
 
     @PutMapping

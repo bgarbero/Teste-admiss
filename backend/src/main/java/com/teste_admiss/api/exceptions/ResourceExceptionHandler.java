@@ -1,10 +1,12 @@
 package com.teste_admiss.api.exceptions;
 
 import com.teste_admiss.config.Messages;
+import com.teste_admiss.infraestruture.exceptions.DataIntegrityViolationException;
 import com.teste_admiss.infraestruture.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -41,6 +43,30 @@ public class ResourceExceptionHandler {
             err.addError(f.getField(), f.getDefaultMessage());
         }
 
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<StandardError> entityNotFound(HttpMessageNotReadableException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError(Messages.BRAND_VALIDATION);
+        err.setMessage(Messages.VALID_BRAND);
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<StandardError> integrationConstraint(DataIntegrityViolationException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError(Messages.BRAND_VALIDATION);
+        err.setMessage(Messages.VALID_BRAND);
+        err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 

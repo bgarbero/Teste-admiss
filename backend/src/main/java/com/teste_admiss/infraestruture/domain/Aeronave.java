@@ -1,5 +1,6 @@
 package com.teste_admiss.infraestruture.domain;
 
+import com.teste_admiss.infraestruture.domain.enums.MarcasEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +21,12 @@ public class Aeronave {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String nome;
 
     @Column
-    private String marca;
+    @Enumerated(EnumType.STRING)
+    private MarcasEnum marca;
 
     @Column
     private Integer ano;
@@ -42,5 +44,15 @@ public class Aeronave {
     @Column
     @UpdateTimestamp
     private LocalDateTime updated;
+
+    @PostPersist
+    public void prePersist(){
+        this.created = LocalDateTime.now();
+    }
+
+    @PostUpdate
+    public void preUpdate(){
+        this.updated = LocalDateTime.now();
+    }
 
 }

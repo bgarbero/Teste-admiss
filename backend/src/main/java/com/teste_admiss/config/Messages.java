@@ -9,4 +9,6 @@ public class Messages {
     public static final String VALIDATION_EXCEPTION = "Validation exception";
     public static final String VALIDATION_MESSAGE = "Validation errors!! Check the errors found below";
     public static final String YEAR_MIN = "The year must be greater than 1900.";
+    public static final String BRAND_VALIDATION = "Invalid mark.";
+    public static final String VALID_BRAND = "Select a valid brand (EMBRAER, BOEING, AIRBUS).";
 }

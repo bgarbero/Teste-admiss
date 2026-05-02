@@ -21,15 +21,12 @@ public class AeronaveServiceImpl implements AeronaveService {
         return repository.findAll(pageable);
     }
 
+
+
     @Override
     public Aeronave findById(Long id){
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(Messages.RESOURCE_NOT_FOUND));
-    }
-
-    @Override
-    public Page<Aeronave> findByFiltros(String marca, String nome, Integer ano, Boolean vendido, Pageable pageable) {
-        return repository.findByFiltros(marca, nome, ano, vendido, pageable);
     }
 
     @Override
@@ -53,4 +50,9 @@ public class AeronaveServiceImpl implements AeronaveService {
         repository.deleteById(id);
     }
 
+    @Override
+    public Aeronave findByName(String nome) {
+            return repository.buscaPorNome(nome);
+
+    }
 }

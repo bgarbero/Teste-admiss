@@ -1,4 +1,0 @@
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('E2-190', 'Embraer', 2014, 'Aeronave comercial de medio porte.', NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('737-100', 'Boeing', 1998, 'Aeronave comercial de curto alcance.', NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('KC-390', 'Embraer', 2015, 'Aviao de transporte militar.', NOW(), NOW());
-INSERT INTO tb_aeronaves (nome, marca, ano, descricao, created, updated) VALUES ('A320', 'Airbus', 1995, 'Aeronave comercial de corredor unico.', NOW(), NOW());
