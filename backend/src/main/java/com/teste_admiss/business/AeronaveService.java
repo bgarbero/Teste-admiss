@@ -9,5 +9,7 @@ public interface AeronaveService {
     Page<Aeronave> findAll(Pageable pageable);
     Aeronave findById(Long id);
     Page<Aeronave> findByFiltros(String marca, String nome, Integer ano, Boolean vendido, Pageable pageable);
-
+    Aeronave insert(Aeronave entity);
+    Aeronave update(Aeronave entity);
+    void delete(Long id);
 }

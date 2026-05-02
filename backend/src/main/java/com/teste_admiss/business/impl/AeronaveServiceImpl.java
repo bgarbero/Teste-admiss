@@ -32,4 +32,24 @@ public class AeronaveServiceImpl implements AeronaveService {
         return repository.findByFiltros(marca, nome, ano, vendido, pageable);
     }
 
+    @Override
+    public Aeronave insert(Aeronave entity){
+        return repository.save(entity);
+    }
+
+    @Override
+    public Aeronave update(Aeronave entity){
+        if(!repository.existsById(entity.getId())){
+            throw new ResourceNotFoundException(Messages.RESOURCE_NOT_FOUND);
+        }
+        return repository.save(entity);
+    }
+
+    @Override
+    public void delete(Long id){
+        if(!repository.existsById(id)){
+            throw new ResourceNotFoundException(Messages.RESOURCE_NOT_FOUND);
+        }
+    }
+
 }
