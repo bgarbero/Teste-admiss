@@ -50,6 +50,7 @@ public class AeronaveServiceImpl implements AeronaveService {
         if(!repository.existsById(id)){
             throw new ResourceNotFoundException(Messages.RESOURCE_NOT_FOUND);
         }
+        repository.deleteById(id);
     }
 
 }
