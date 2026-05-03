@@ -25,6 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/aeronaves")
 @RequiredArgsConstructor
 @Tag(name = "Aeronave", description = "Contém as operações para controle de cadastro de aeronaves.")
