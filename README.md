@@ -1,4 +1,4 @@
-# ✈️ Cadastro de Aeronaves — Teste Admissional Sonda
+# ✈️ Cadastro de Aeronaves
 
 API REST + Frontend para gerenciamento de aeronaves, desenvolvido com **Spring Boot 3**, **PostgreSQL** e **React + Vite**, containerizado com Docker.
 
