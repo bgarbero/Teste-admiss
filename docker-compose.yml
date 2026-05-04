@@ -1,0 +1,60 @@
+services:
+
+  # ── Banco de dados PostgreSQL ──────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: aeronaves-db
+    environment:
+      POSTGRES_DB: aeronaves_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aeronaves-net
+
+  # ── Backend Spring Boot ────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aeronaves-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://db:5432/aeronaves_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - aeronaves-net
+
+  # ── Frontend React ─────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: aeronaves-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - aeronaves-net
+
+volumes:
+  postgres_data:
+
+networks:
+  aeronaves-net:
+    driver: bridge
