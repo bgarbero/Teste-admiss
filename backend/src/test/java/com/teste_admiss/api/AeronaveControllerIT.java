@@ -2,7 +2,6 @@ package com.teste_admiss.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teste_admiss.api.dto.AeronaveRequestDTO;
-import com.teste_admiss.infraestruture.domain.enums.MarcasEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
