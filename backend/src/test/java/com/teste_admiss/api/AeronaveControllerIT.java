@@ -2,15 +2,18 @@ package com.teste_admiss.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teste_admiss.api.dto.AeronaveRequestDTO;
+import com.teste_admiss.infraestruture.domain.enums.MarcasEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.teste_admiss.infraestruture.domain.enums.MarcasEnum.EMBRAER;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
+@ActiveProfiles("test")
 public class AeronaveControllerIT {
 
     @Autowired
@@ -58,7 +62,7 @@ public class AeronaveControllerIT {
         AeronaveRequestDTO requestDTO = new AeronaveRequestDTO(
                 existingId,
                 "E2-190 Atualizado",
-                "Embraer Atualizada",
+                EMBRAER,
                 2024,
                 "Aeronave atualizada no teste de integração",
                 false
@@ -73,7 +77,7 @@ public class AeronaveControllerIT {
                         status().isOk(),
                         jsonPath("$.id").value(existingId),
                         jsonPath("$.nome").value("E2-190 Atualizado"),
-                        jsonPath("$.marca").value("Embraer Atualizada")
+                        jsonPath("$.marca").value(EMBRAER.name())
                 );
     }
 
@@ -82,7 +86,7 @@ public class AeronaveControllerIT {
         AeronaveRequestDTO requestDTO = new AeronaveRequestDTO(
                 nonExistingId,
                 "Aeronave Fantasma",
-                "Fabricante Fantasma",
+                EMBRAER,
                 2000,
                 "Esta aeronave nao existe no banco",
                 false

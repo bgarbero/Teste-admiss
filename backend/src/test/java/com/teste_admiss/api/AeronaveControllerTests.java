@@ -7,6 +7,7 @@ import com.teste_admiss.api.dto.AeronaveResponseFullDTO;
 import com.teste_admiss.api.mapper.AeronaveMapper;
 import com.teste_admiss.business.AeronaveService;
 import com.teste_admiss.infraestruture.domain.Aeronave;
+import com.teste_admiss.infraestruture.domain.enums.MarcasEnum;
 import com.teste_admiss.infraestruture.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(value = AeronaveController.class)
+@WebMvcTest(
+        value = AeronaveController.class,
+        excludeAutoConfiguration = SecurityAutoConfiguration.class
+)
 public class AeronaveControllerTests {
 
     @Autowired
@@ -59,19 +63,19 @@ public class AeronaveControllerTests {
         aeronave = new Aeronave();
         aeronave.setId(existingId);
         aeronave.setNome("Boeing 737");
-        aeronave.setMarca("Boeing");
+        aeronave.setMarca(MarcasEnum.BOEING);
         aeronave.setAno(2020);
         aeronave.setDescricao("Aeronave comercial");
         aeronave.setVendido(false);
         aeronave.setCreated(LocalDateTime.now());
         aeronave.setUpdated(LocalDateTime.now());
 
-        requestDTO = new AeronaveRequestDTO(existingId, "Boeing 737", "Boeing", 2020, "Aeronave comercial", false);
+        requestDTO = new AeronaveRequestDTO(existingId, "Boeing 737", MarcasEnum.BOEING, 2020, "Aeronave comercial", false);
 
-        responseDTO = new AeronaveResponseDTO(existingId, "Boeing", "Boeing 737", 2020, false);
+        responseDTO = new AeronaveResponseDTO(existingId, MarcasEnum.BOEING, "Boeing 737", 2020, false);
 
         responseFullDTO = new AeronaveResponseFullDTO(
-                existingId, "Boeing 737", "Boeing", 2020,
+                existingId, "Boeing 737", MarcasEnum.BOEING, 2020,
                 "Aeronave comercial", false,
                 LocalDateTime.now(), LocalDateTime.now()
         );
@@ -122,12 +126,11 @@ public class AeronaveControllerTests {
     }
 
     @Test
-    public void findByFiltrosShouldReturnPage() throws Exception {
-        // (7) findByFiltros delega ao service — stub já configurado via "any()"
-        when(service.findByFiltros(any(), any(), any(), any(), any())).thenReturn(page);
+    public void findByNomeShouldReturnAeronaveWhenNomeExists() throws Exception {
+        when(service.findByName(any())).thenReturn(aeronave);
 
-        mockMvc.perform(get("/aeronaves/find")
-                        .param("marca", "Boeing")
+        mockMvc.perform(get("/aeronaves/nome")
+                        .param("nome", "Boeing 737")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -174,7 +177,7 @@ public class AeronaveControllerTests {
         when(service.update(any())).thenThrow(ResourceNotFoundException.class);
 
         AeronaveRequestDTO dtoInexistente = new AeronaveRequestDTO(
-                nonExistingId, "Aeronave Inexistente", "Marca Inexistente", 2000, "desc", false
+                nonExistingId, "Aeronave Inexistente", MarcasEnum.BOEING, 2000, "desc", false
         );
         String jsonBody = objectMapper.writeValueAsString(dtoInexistente);
 
